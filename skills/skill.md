@@ -1,6 +1,6 @@
 # <Skill name>
 
-Replace the placeholders with this skill's procedure. For another skill, copy this file to a descriptive filename in the same folder.
+This template holds one optional skill's task-specific instructions. Use it as a standalone Markdown file in skills/ or inside a skill folder alongside supporting files. Replace the placeholders below. Existing ZIP skill packages can also be stored in skills/.
 
 **Purpose:** <What this skill helps the user accomplish.>
 
