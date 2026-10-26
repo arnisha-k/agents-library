@@ -290,6 +290,26 @@ Keep the existing source, coding, and validation worksheets intact.
 | QA Review | Errors and items requiring review | Analysts |
 | Comment Box Analysis | PivotTables and calculations | Analysts/managers |
 | Survey Dashboard | Charts and executive takeaways | Leadership |
+
+hh In the "Category Dictionary" worksheet, I have provided 15 predefined categories for employee survey comment analysis.
+
+Expand this into a structured coding dictionary.
+
+For each existing category, add the following columns:
+- Definition: A clear explanation of what the category represents.
+- Inclusion Criteria: Types of employee feedback that belong in this category.
+- Exclusion Criteria: Similar feedback that should be categorized elsewhere.
+- Example Feedback: An illustrative employee comment.
+- Suggested Subtopics: Common specific themes under this category.
+
+Pay special attention to distinguishing categories that may overlap, including Workload vs. Work Styles, Management vs. Communication from Leadership, and Professional Development vs. Onboarding/Training.
+
+Important:
+1. Preserve all 15 existing category names exactly.
+2. Do not add, remove, or rename categories.
+3. Use hypothetical examples, not actual confidential employee comments.
+4. Format the result as a structured Excel table in the same worksheet.
+5. Do not modify "Raw Comments Cleaned" or the original survey data.
   
 
 
