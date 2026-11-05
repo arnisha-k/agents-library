@@ -1,0 +1,27 @@
+﻿Test ID,Test scenario,Input example / variation,What to validate,Expected handling / acceptance principle,Severity if missed,Suggested result to record
+T01,Text-searchable PDF,PDF with selectable text,Native text extraction and field mapping,Prefer extracted text; do not degrade via unnecessary OCR,Medium,Native text extracted? / field accuracy
+T02,Scanned PDF,Image-only PDF with no embedded text,"OCR fallback, page count and confidence",OCR all relevant pages; low-confidence results go to review,High,Coverage / confidence / field accuracy
+T03,Clear photographed JPG,Smartphone photo of receipt,"OCR, crop handling and field mapping",Successful field extraction with source evidence where visible,Medium,Field accuracy / time
+T04,PNG or low-resolution image,Compressed low-resolution receipt,Minimum quality and legibility assessment,"Low-quality documents flagged, not auto-matched",High,Readable? / review reason
+T05,HEIC/HEIF photo,iPhone .heic file,Conversion pipeline and metadata preservation,Converted to loss-minimized supported image or explicitly rejected with a clear error,High,Converted? / errors
+T06,Image embedded in DOCX,Word file containing an inserted receipt photograph,Extraction of embedded media and page order,Receipt image extracted/rendered and linked to original filename,High,Pages/media found / OCR success
+T07,90-degree / 270-degree rotation,Landscape receipt scanned sideways,Orientation detection,Rotate before OCR; preserve original for audit,High,Correct rotation? / improvement
+T08,180-degree rotation,Upside-down scanned receipt,Orientation detection,Normalize orientation or flag for review,High,Correct rotation?
+T09,Skew / perspective distortion,Angled camera photo or curved paper,Deskew/perspective correction,Attempt preprocessing but flag persistent unreadability,High,Before-after readability
+T10,"Blur, shadows, overexposure","Low light, tiny text, glare",Image quality gate,No invented values; request rescan/review when unreadable,Critical,Quality rejection reason
+T11,Multiple receipts in one file,Two receipts on one PDF page or in DOCX,Document segmentation,Create separate linked records for each receipt or send to review,High,Receipt count correct?
+T12,Multi-page receipt,Receipt across two or more pages,Page stitching and provenance,Do not mix line items or fields from unrelated receipts,High,Page linkage / missing fields
+T13,Multiple services/line items,Multiple treatments and subtotals,Item-level extraction,Record each relevant line item and total; do not treat subtotal as amount paid,Critical,Line-item recall / amount exact
+T14,Handwriting,"Handwritten amount, clinic name or date",OCR model suitability,Mark uncertain handwritten values for review,High,Field-level accuracy
+T15,Bilingual or non-English text,Receipt with mixed languages,Language support and interpretation,Use declared language support or manual review,Medium,Coverage by language
+T16,Date ambiguity,"Service date, invoice date and paid date differ",Correct date semantics,Service date must not be silently replaced by transaction date,Critical,Service-date exact match
+T17,Provider alias variation,Clinic name on receipt; practitioner name on claim,Provider alias table / fuzzy match,Require corroborating attributes; name similarity alone cannot clear a claim,Critical,False-match count / alias outcome
+T18,Monetary ambiguity,"Total, tax, discount, insurance coverage, paid amount",Distinguish amounts,Do not map receipt total to paid amount without evidence,Critical,Paid-amount exact match
+T19,Duplicates and reuploads,Same receipt submitted twice in different formats,Duplicate detection,Flag likely duplicates; avoid duplicate claims matching,High,Duplicate precision/recall
+T20,"Corrupt, password-protected or unsupported files","Malformed PDF, encrypted PDF, unknown extension",Failure isolation and logs,One bad file cannot stop remaining batch; log filename and exception,High,Success/fail counts and error code
+T21,Missing member identity,Receipt lacks member/customer field,Required-field gates,Never infer absent member identity; route to review,Critical,Unsupported inference count
+T22,Conflicting claim matches,Two plausible claims with similar amounts/dates,Candidate ranking and business rules,Ambiguous ties remain manual review; no silent auto-approval,Critical,False automatic matches
+T23,Sensitive identifiers and retention,"Names, claim IDs, health information","Access control, logging, retention and redaction",Store only necessary fields and protected evidence; use approved region/host,Critical,Security checklist completed?
+T24,500-file throughput / retry,Representative 500-file batch,"Wall time, per-file processing time and restartability",Finish with no lost files; make reruns idempotent and item-level,High,Files/hour; retry rate; cost
+T25,JSON/CSV schema validation,"Missing fields, invalid date or bad JSON","Schema, type and provenance validation","Reject invalid output; include file ID, pages and action decision",High,Schema valid rate
+T26,Claims matching versus OCR quality,Clear OCR but wrong claim match,Separate metric evaluation,"Measure OCR readability, field accuracy and match precision independently",Critical,Metrics at all three stages
